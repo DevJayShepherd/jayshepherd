@@ -5,6 +5,9 @@ from portfolioApp.core.db.database import database
 from portfolioApp.core.settings import settings
 from portfolioApp.apps.link_shortner.router.api_router import link_short_router
 from portfolioApp.users.router.api_router import user_router
+from portfolioApp.core.db.database import Base, engine
+
+from portfolioApp.apps.link_shortner.models import link_models
 
 
 def include_router(app):
@@ -38,6 +41,7 @@ app = start_application()
 @app.on_event("startup")
 async def startup():
     print('Starting the database...')
+    Base.metadata.create_all(bind=engine)
     await database.connect()
 
 
@@ -50,8 +54,3 @@ async def shutdown():
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
