@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from portfolioApp.users.schemas.user_schema import UserCreate, UserUpdate, UserRead
-
+from portfolioApp.users.utils.user_utils import fastapi_users, auth_backend
 
 user_router = APIRouter()
 

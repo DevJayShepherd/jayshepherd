@@ -4,10 +4,12 @@ from starlette.middleware.cors import CORSMiddleware
 from portfolioApp.core.db.database import database
 from portfolioApp.core.settings import settings
 from portfolioApp.apps.link_shortner.router.api_router import link_short_router
+from portfolioApp.users.router.api_router import user_router
 
 
 def include_router(app):
     app.include_router(link_short_router)
+    app.include_router(user_router)
 
 
 def start_application():

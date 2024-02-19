@@ -8,7 +8,8 @@ from fastapi_users.authentication import (
     BearerTransport,
     JWTStrategy,
 )
-from fastapi_users.db import SQLAlchemyUserDatabase
+from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase
+
 from sqlalchemy.orm import Session
 
 from portfolioApp.core.db.database import get_db
@@ -18,7 +19,7 @@ SECRET = "SECRET"
 
 
 async def get_user_db(session: Session = Depends(get_db)):
-    yield SQLAlchemyUserDatabase(session, User)
+    yield SQLAlchemyUserDatabase(user_table=User, session=session)
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
